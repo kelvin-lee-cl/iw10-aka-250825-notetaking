@@ -1,0 +1,36 @@
+[build]
+  publish = "public"
+  command = "npm install"
+
+[build.environment]
+  NODE_VERSION = "18"
+
+[[redirects]]
+  from = "/*"
+  to = "/static/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/exercise3"
+  to = "/static/exercise3.html"
+  status = 200
+
+[[redirects]]
+  from = "/exercise1"
+  to = "/static/exercise1.html"
+  status = 200
+
+[[redirects]]
+  from = "/exercise2"
+  to = "/static/exercise2.html"
+  status = 200
+
+[[redirects]]
+  from = "/admin"
+  to = "/static/admin.html"
+  status = 200
+
+[[redirects]]
+  from = "/classppt"
+  to = "/static/classppt.html"
+  status = 200
