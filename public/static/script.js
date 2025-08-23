@@ -60,7 +60,7 @@ document.addEventListener('keydown', (event) => {
 });
 
 // Global variables for slide functionality
-const totalSlides = 17;
+const totalSlides = 18;
 let currentSlide = 1;
 
 document.addEventListener('DOMContentLoaded', function () {
