@@ -1,0 +1,1171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Art Studio - AKA</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+    <link rel="icon" type="image/png" sizes="32x32" href="../favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../favicon/favicon-16x16.png">
+    <!-- Add Firebase SDK -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-app.js";
+        import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-storage.js";
+
+        // Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyBvp5blL0lt5qjUontHu9-XNZWUhyd-CP8",
+            authDomain: "iw01-aka-250730.firebaseapp.com",
+            projectId: "iw01-aka-250730",
+            storageBucket: "iw01-aka-250730.firebasestorage.app",
+            messagingSenderId: "847995505775",
+            appId: "1:847995505775:web:bdf1877cbd283a65da919a",
+            measurementId: "G-B7LHQEMYKT"
+        };
+
+        // Initialize Firebase
+        let app, storage;
+        try {
+            app = initializeApp(firebaseConfig);
+            console.log("Firebase initialized successfully");
+
+            // Initialize Storage
+            try {
+                storage = getStorage(app);
+                console.log("Firebase Storage initialized successfully");
+                window.fbStorage = storage; // Make storage available globally
+            } catch (storageError) {
+                console.error("Storage initialization failed:", storageError);
+                alert("Firebase storage initialization failed. Upload functionality may not be available.");
+            }
+        } catch (firebaseError) {
+            console.error("Firebase initialization failed:", firebaseError);
+            alert("Firebase initialization failed. Upload functionality is not available.");
+        }
+
+        // Generate a random user ID if not already set
+        if (!localStorage.getItem('currentUserId')) {
+            const randomId = 'user_' + Math.random().toString(36).substring(2, 8);
+            localStorage.setItem('currentUserId', randomId);
+            console.log('Generated random user ID:', randomId);
+        }
+    </script>
+    <style>
+        body {
+            background: linear-gradient(135deg, #f6f9fc 0%, #eef2f7 100%);
+        }
+
+        /* Custom navbar styling */
+        .navbar {
+            background-color: #FFFFFF !important;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            height: 80px;
+        }
+
+        .navbar-light .navbar-nav .nav-link {
+            color: #333333;
+        }
+
+        .navbar-light .navbar-nav .nav-link:hover {
+            color: #D87D3A;
+        }
+
+
+
+        .text-rotator {
+            position: relative;
+            display: flex;
+            overflow: hidden;
+        }
+
+        .text-item {
+            position: absolute;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        .text-item.active {
+            opacity: 1;
+        }
+
+        .button-container {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            position: relative;
+            top: 300px;
+        }
+
+
+
+        .btn {
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            margin: 0 10px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+
+        h4.mb-3 {
+            font-weight: 600;
+            color: var(--text-color);
+            margin: 2rem 0;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            border: none;
+            padding: 0.75rem 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--hover-color);
+            transform: translateY(-1px);
+        }
+
+
+        @media (max-width: 576px) {
+            .container {
+                padding: 1rem;
+            }
+
+            .responsive-text {
+                font-size: 14px;
+                /* Adjust for small screens */
+            }
+
+            .button-container {
+                display: none;
+            }
+
+            .text-item h3 {
+                font-size: 16px;
+            }
+
+            .headline-container img {
+                width: 100%;
+                padding: 10%;
+            }
+        }
+
+        @media (min-width: 577px) and (max-width: 768px) {
+            .responsive-text {
+                font-size: 16px;
+                /* Adjust for medium screens */
+            }
+
+            .button-container {
+                display: none;
+            }
+
+            .text-item h3 {
+                font-size: 18px;
+            }
+        }
+
+        @media (min-width: 769px) and (max-width: 992px) {
+            .responsive-text {
+                font-size: 18px;
+                /* Adjust for large screens */
+            }
+
+            .button-container {
+                display: none;
+            }
+
+            .text-item h3 {
+                font-size: 20px;
+            }
+        }
+
+        @media (min-width: 993px) and (max-width: 1200px) {
+            .responsive-text {
+                font-size: 20px;
+                /* Adjust for extra large screens */
+            }
+
+            .button-container {
+                display: none;
+            }
+
+        }
+
+        @media (min-width: 1201px) and (max-width: 1400px) {
+            .responsive-text {
+                font-size: 22px;
+                /* Adjust for larger extra large screens */
+            }
+
+            .button-container {
+                display: none;
+            }
+        }
+
+        @media (min-width: 1401px) and (max-width: 1600px) {
+            .responsive-text {
+                font-size: 24px;
+                /* Adjust for even larger screens */
+            }
+
+        }
+
+        @media (min-width: 1601px) and (max-width: 18000px) {
+            .responsive-text {
+                font-size: 26px;
+                /* Adjust for very large screens up to 18,000 pixels */
+            }
+        }
+
+        .scrollable-textarea {
+            height: 200px;
+            /* Set a fixed height */
+            overflow-y: auto;
+            /* Enable vertical scrolling */
+        }
+
+        #sectionTitle {
+            transition: opacity 0.3s ease;
+            margin-left: 1rem;
+            font-weight: 500;
+        }
+
+
+        /* ... existing styles ... */
+
+        .section-box {
+            background-color: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.05);
+            padding: 2rem;
+            margin: 1rem 0;
+            transition: all 0.3s ease;
+        }
+
+        .section-box:hover {
+            box-shadow: 0 6px 28px rgba(0, 0, 0, 0.08);
+            transform: translateY(-2px);
+        }
+
+        .section-box img.round {
+            border-radius: 12px;
+            transition: transform 0.3s ease;
+        }
+
+        .section-box {
+            background-color: transparent;
+            padding: 1.5rem;
+            border-radius: 12px;
+        }
+
+        @media (max-width: 768px) {
+            .section-box {
+                padding: 1rem;
+            }
+
+            .flu_logo {
+                position: absolute;
+                left: 10px;
+                top: -7px;
+            }
+
+            .school_logo {
+                position: absolute;
+                left: 150px;
+                top: 12px;
+            }
+        }
+
+        /* iPad Air (820 x 1180) specific optimizations */
+        @media (min-width: 768px) and (max-width: 1024px) {
+            .navbar {
+                height: 70px !important;
+                padding: 0 1rem !important;
+            }
+
+            .navbar-brand {
+                margin-right: 0.5rem !important;
+            }
+
+            .flu_logo img {
+                position: absolute;
+                left: 10px;
+                top: 7px;
+            }
+
+            .school_logo img {
+                display: none;
+                position: absolute;
+                left: 150px;
+                top: 8px;
+            }
+        }
+
+        #userIdDisplay {
+            font-size: 0.9rem;
+            padding: 6px 12px;
+            margin-right: 0.5rem !important;
+        }
+
+        .navbar-nav .nav-link {
+            font-size: 0.9rem;
+            padding: 0.5rem 0.75rem !important;
+        }
+
+        .navbar-nav .btn {
+            font-size: 0.85rem;
+            padding: 0.4rem 0.8rem;
+        }
+
+        .navbar-toggler {
+            padding: 0.25rem 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        /* Ensure proper spacing between navbar elements */
+        .navbar>div:first-child {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .navbar-collapse {
+            flex-grow: 0;
+        }
+
+        .navbar-nav {
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        /* Specific iPad Air portrait optimization */
+        @media (min-width: 768px) and (max-width: 834px) and (orientation: portrait) {
+            .navbar {
+                height: 65px !important;
+                padding: 0 0.75rem !important;
+            }
+
+            .flu_logo img {
+                width: 70px !important;
+                margin-top: 6px !important;
+            }
+
+            .school_logo img {
+                height: 60px !important;
+                padding: 2px !important;
+            }
+
+            #userIdDisplay {
+                font-size: 0.8rem;
+                padding: 4px 8px;
+            }
+
+            .navbar-nav .nav-link {
+                font-size: 0.8rem;
+                padding: 0.4rem 0.6rem !important;
+            }
+
+            .navbar-nav .btn {
+                font-size: 0.8rem;
+                padding: 0.3rem 0.6rem;
+            }
+        }
+
+        li.active {
+            font-weight: bold;
+        }
+
+        /* Add hover animation for the buttons */
+        .btn.rounded-pill:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            color: inherit !important;
+            /* Keep the original text color */
+        }
+
+        /* Ensure WhatsApp button text colors stay fixed */
+        .btn.btn-warning.rounded-pill {
+            color: white !important;
+        }
+
+        .btn.btn-warning.rounded-pill:hover {
+            color: white !important;
+        }
+
+        .btn.btn-info.rounded-pill {
+            color: white !important;
+        }
+
+        .btn.btn-info.rounded-pill:hover {
+            color: white !important;
+        }
+
+        .btn.btn-primary.rounded-pill {
+            color: white !important;
+        }
+
+        .btn.btn-primary.rounded-pill:hover {
+            color: white !important;
+        }
+
+        /* Prompt Card Styles */
+        .card.mb-3 {
+            transition: box-shadow 0.3s ease, transform 0.2s ease;
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+            border-radius: 10px;
+        }
+
+        .card.mb-3:hover {
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transform: translateY(-2px);
+        }
+
+        .card-header {
+            background-color: var(--secondary-color) !important;
+            border-bottom: 1px solid var(--border-color);
+            padding: 0.75rem 1.25rem;
+        }
+
+        .prompt-card .card-header {
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+
+        .action-buttons {
+            opacity: 1;
+        }
+
+        .card-body:hover .action-buttons {
+            opacity: 1;
+        }
+
+        .action-buttons .btn {
+            width: 32px;
+            height: 32px;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+            border: none;
+        }
+
+        .action-buttons .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        .action-buttons .btn i {
+            font-size: 0.8rem;
+        }
+
+        .copy-btn {
+            background-color: #f8f9fa;
+            color: #6c757d;
+            border: 1px solid #dee2e6 !important;
+        }
+
+        .copy-btn:hover {
+            background-color: #6c757d;
+            color: white;
+        }
+
+        .edit-btn {
+            background-color: #f8f9fa;
+            color: #0d6efd;
+            border: 1px solid #dee2e6 !important;
+        }
+
+        .edit-btn:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .delete-btn {
+            background-color: #f8f9fa;
+            color: #dc3545;
+            border: 1px solid #dee2e6 !important;
+        }
+
+        .delete-btn:hover {
+            background-color: #dc3545;
+            color: white;
+        }
+
+        .btn-secondary {
+            background-color: #6c757d;
+        }
+
+        .btn-secondary:hover {
+            background-color: #5a6268;
+        }
+
+        .btn-primary {
+            background-color: #0d6efd;
+        }
+
+        .btn-primary:hover {
+            background-color: #0b5ed7;
+        }
+
+        .btn-danger {
+            background-color: #dc3545;
+        }
+
+        .btn-danger:hover {
+            background-color: #bb2d3b;
+        }
+
+        .card-body {
+            padding: 1.5rem;
+        }
+
+        .card-text {
+            font-size: 1.05rem;
+            line-height: 1.5;
+            color: #445566;
+        }
+
+        .card {
+            border: none;
+            border-radius: 25px;
+            background: white;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .upload-area {
+            border: 3px dashed #FF9A9E;
+            border-radius: 20px;
+            padding: 2.5rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: rgba(255, 154, 158, 0.05);
+        }
+
+        .upload-area:hover {
+            border-color: #FF5E62;
+            background: rgba(255, 154, 158, 0.1);
+            transform: scale(1.02);
+        }
+
+        .upload-area i {
+            color: #FF5E62;
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .form-control,
+        .form-select {
+            border-radius: 15px;
+            border: 2px solid #eef2f7;
+            padding: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus,
+        .form-select:focus {
+            border-color: #FF9A9E;
+            box-shadow: 0 0 0 0.2rem rgba(255, 154, 158, 0.25);
+        }
+
+        .form-label {
+            color: #2C3E50;
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .btn {
+            border-radius: 20px;
+            padding: 10px 25px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #FF9A9E 0%, #FF5E62 100%);
+            border: none;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 94, 98, 0.3);
+        }
+
+        .btn-secondary {
+            background: #2C3E50;
+            border: none;
+        }
+
+        .btn-secondary:hover {
+            background: #34495E;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(44, 62, 80, 0.3);
+        }
+
+        .preview-container {
+            position: relative;
+            max-width: 100%;
+            margin: 1.5rem 0;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .preview-container:hover {
+            transform: scale(1.02);
+        }
+
+        .preview-container img {
+            max-width: 100%;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .remove-image {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 50%;
+            padding: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .remove-image:hover {
+            transform: scale(1.1);
+            background: #fff;
+        }
+
+        .result-container {
+            position: relative;
+            max-width: 100%;
+            margin: 1.5rem 0;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .result-container:hover {
+            transform: scale(1.02);
+        }
+
+        .result-container img {
+            max-width: 100%;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .action-buttons {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .action-buttons button {
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            border-radius: 50%;
+            padding: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .action-buttons button:hover {
+            transform: scale(1.1);
+            background: #fff;
+        }
+
+        .action-buttons i {
+            color: #FF5E62;
+            font-size: 1.2rem;
+        }
+
+        .alert {
+            border-radius: 15px;
+            border: none;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-check-input:checked {
+            background-color: #FF5E62;
+            border-color: #FF5E62;
+        }
+
+        .form-check-label {
+            color: #2C3E50;
+            font-weight: 500;
+        }
+
+        #userIdDisplay {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: 600;
+            color: #2C3E50;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .spinner-border {
+            color: #FF5E62;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.05);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .btn-primary:active {
+            animation: pulse 0.3s ease-in-out;
+        }
+
+        .btn-outline-primary {
+            color: #0d6efd;
+            border: 1px solid #0d6efd;
+            background-color: transparent;
+            transition: all 0.3s ease;
+        }
+
+        .btn-outline-primary:hover {
+            color: white;
+            background-color: #0d6efd;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(13, 110, 253, 0.2);
+        }
+
+        .btn_show {
+            display: block !important;
+            color: #2C3E50;
+            border: 1px solid #34495E;
+            background-color: transparent;
+            transition: all 0.3s ease;
+        }
+
+        /* Quick Upload Modal Styles */
+        #quickUploadModal .modal-content {
+            border-radius: 20px;
+            border: none;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        #quickUploadModal .modal-header {
+            background: linear-gradient(135deg, #FF9A9E 0%, #FF5E62 100%);
+            color: white;
+            border-radius: 20px 20px 0 0;
+            border: none;
+        }
+
+        #quickUploadModal .modal-title {
+            font-weight: 600;
+        }
+
+        #quickUploadModal .modal-body {
+            padding: 2rem;
+        }
+
+        #quickUploadModal .form-label {
+            color: #2C3E50;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        #quickUploadModal .form-control,
+        #quickUploadModal .form-select {
+            border-radius: 15px;
+            border: 2px solid #eef2f7;
+            padding: 12px;
+            transition: all 0.3s ease;
+        }
+
+        #quickUploadModal .form-control:focus,
+        #quickUploadModal .form-select:focus {
+            border-color: #FF9A9E;
+            box-shadow: 0 0 0 0.2rem rgba(255, 154, 158, 0.25);
+        }
+
+        #quickUploadModal .btn {
+            border-radius: 20px;
+            padding: 10px 25px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        #quickUploadModal .btn-primary {
+            background: linear-gradient(135deg, #FF9A9E 0%, #FF5E62 100%);
+            border: none;
+        }
+
+        #quickUploadModal .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 94, 98, 0.3);
+        }
+
+        #quickUploadModal .btn-secondary {
+            background: #2C3E50;
+            border: none;
+        }
+
+        #quickUploadModal .btn-secondary:hover {
+            background: #34495E;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(44, 62, 80, 0.3);
+        }
+    </style>
+    <link rel="stylesheet" type="text/css" href="../static/style_home.css">
+    <link rel="stylesheet" type="text/css" href="../static/styles.css">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light px-5 fixed-top">
+        <div class="d-flex align-items-center">
+            <a class="navbar-brand flu_logo" href="https://future-leaders-union.odoo.com/zh_TW" target="_blank">
+                <img class="mx-2" src="../static/images/FLU_logo2.png" width="100" class="d-inline-block align-top"
+                    style="margin-top:12px;">
+            </a>
+            <a class="navbar-brand school_logo" href="https://mcsps.edu.hk/" target="_blank">
+                <img class="d-none" src="https://mcsps.edu.hk/wp-content/uploads/2024/09/BADGEHI.png" height="90"
+                    class="d-inline-block align-top" style="padding:5px;" alt="School Logo" target="_blank">
+            </a>
+        </div>
+
+        <span id="userIdDisplay" class="text-black me-3 d-none d-md-inline">User: <span id="userId"></span></span>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="justify-content-end collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto mx-2 align-items-center">
+                <li class="nav-item">
+                    <a class="nav-link" href="../static/index.html">Home</a>
+                </li>
+                <li class="nav-item" id="classPptLink">
+                    <a class="nav-link" href="../static/classppt.html">Lessons</a>
+                </li>
+                <li class="nav-item active" id="imgGenLink">
+                    <a class="nav-link" href="../img-gen/img_gen.html">AI Art Studio</a>
+                </li>
+                <li class="nav-item d-none" id="teacherArea">
+                    <a class="nav-link" href="../static/teacherdashboard.html">Gallery</a>
+                </li>
+                <li class="nav-item">
+                    <button onclick="logout()" class="btn btn-secondary" id="logoutBtn">Logout</button>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container py-5 mt-5">
+
+        <!-- Main Content -->
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <!-- Generation Type Selection -->
+                        <div class="mb-4 d-flex justify-content-between align-items-center">
+                            <div class="btn-group w-100" role="group" aria-label="Generation type selection">
+                                <input type="radio" class="btn-check" name="generationType" id="textToImage" checked>
+                                <label class="btn btn-outline-primary" for="textToImage">
+                                    <i class="bi bi-type"></i> Text to Image
+                                </label>
+                                <input type="radio" class="btn-check" name="generationType" id="imageToImage">
+                                <label class="btn btn-outline-primary" for="imageToImage">
+                                    <i class="bi bi-image"></i> Image to Image
+                                </label>
+
+                            </div>
+
+                        </div>
+
+
+
+                        <!-- Text to Image Prompt Builder -->
+                        <div id="textToImageSection" class="prompt-builder">
+                            <div class="row g-3">
+                                <div class="col-md-12">
+                                    <select class="form-select prompt-select" id="characterSelect">
+                                        <option value="">Select Theme (主題）</option>
+                                        <option value="a cute cat wearing pajamas and a sleeping cap">a cute cat wearing
+                                            pajamas and a sleeping cap (一隻可愛的貓咪穿著睡衣和睡帽)</option>
+                                        <option value="a playful dog jumping over a rainbow with a big smile">a playful
+                                            dog jumping over a rainbow with a big smile (一隻開心的狗狗在彩虹上跳躍)</option>
+                                        <option value="a wise owl reading a book while wearing glasses">a wise owl
+                                            reading a book while wearing glasses (一隻聰明的貓頭鷹戴著眼鏡在閱讀)</option>
+                                        <option value="a happy panda waving its paw and holding a bamboo shoot">a happy
+                                            panda waving its paw and holding a bamboo shoot (一隻開心的熊貓揮動它的爪子並
+                                            抱著竹子)</option>
+                                        <option value="a cheerful rabbit riding a skateboard and wearing a cap">a
+                                            cheerful rabbit riding a skateboard and wearing a cap (一隻開心的兔子騎著滑板並
+                                            戴著帽子)</option>
+                                        <option
+                                            value="a friendly elephant spraying water with its trunk and wearing sunglasses">
+                                            a friendly elephant spraying water with its trunk and wearing sunglasses
+                                            (一隻友善的大象用它的長鼻子噴水並戴著太陽鏡)</option>
+                                        </option>
+                                        <option value="">Fill it yourself...(English only)</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-12">
+                                    <select class="form-select prompt-select" id="actionSelect">
+                                        <option value="">Select Settings (場景)</option>
+                                        <option value="cozy bedroom setting,">cozy bedroom setting, (溫馨的臥室環境)</option>
+                                        <option value="colorful playground,">colorful playground, (繽紛的遊樂場)</option>
+                                        <option value="peaceful library,">peaceful library, (安靜的圖書館)</option>
+                                        <option value="sunny park with flowers,">sunny park with flowers, (陽光明媚的花園公園)
+                                        </option>
+                                        <option value="">Fill it yourself...(English only)</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-12">
+                                    <select class="form-select prompt-select" id="settingSelect">
+                                        <option value="">Select Layout (構圖)</option>
+
+                                        <option value="medium, shot and shallow depth of field">medium shot and shallow
+                                            depth of field (中景，淺景深)</option>
+                                        <option value="close-up, soft lighting">close-up, soft lighting (特寫，柔和光線)
+                                        </option>
+                                        <option value="wide angle, vibrant colors">wide angle, vibrant colors (廣角，鮮豔色彩)
+                                        </option>
+                                        <option value="dynamic perspective, playful composition">dynamic perspective,
+                                            playful composition (動態視角，活潑構圖)</option>
+                                        <option value="">Fill it yourself...(English only)</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="mt-3">
+                                <div class="d-flex gap-2">
+                                    <button id="randomizeBtn" class="btn btn-secondary">
+                                        <i class="bi bi-shuffle"></i> Randomize
+                                    </button>
+                                    <button id="clearBtn" class="btn btn-outline-secondary btn_show">
+                                        <i class="bi bi-x-circle"></i> Clear
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="mt-3">
+                                <label class="form-label">Generated Prompt</label>
+                                <div id="generatedPrompt" class="form-control bg-light"
+                                    style="min-height: 60px; font-style: italic;">
+                                    Select options to generate a prompt...
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Image to Image Prompt Builder -->
+                        <div id="imageToImageSection" class="prompt-builder d-none">
+                            <div class="mb-3">
+                                <label for="personDescription" class="form-label">Describe your photo</label>
+                                <textarea class="form-control" id="personDescription" rows="3"
+                                    placeholder="Describe your photo (e.g., 'A happy child with rosy cheeks')"></textarea>
+                            </div>
+                            <div class="mt-3">
+                                <div class="d-flex gap-2">
+                                    <button id="clearStyleBtn" class="btn btn-outline-secondary btn_show">
+                                        <i class="bi bi-x-circle"></i> Clear
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="mt-3">
+                                <label class="form-label">Generated Prompt</label>
+                                <div id="imageToImagePrompt" class="form-control bg-light"
+                                    style="min-height: 60px; font-style: italic;">
+                                    Describe your photo to generate a prompt...
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Image Upload Section -->
+                        <div id="imageUploadSection" class="mb-4 d-none">
+                            <label class="form-label">Upload your character image</label>
+                            <div id="uploadArea" class="upload-area"
+                                onclick="document.getElementById('imageInput').click()">
+                                <i class="bi bi-cloud-upload fs-1"></i>
+                                <p class="mb-0">Click here or drag and drop an image</p>
+                                <p class="text-muted small">Supported formats: JPG, PNG, GIF, HEIC</p>
+                                <p class="text-muted small">📱 iOS users: Photos are automatically compressed to 5MB</p>
+                                <p class="text-muted small">💡 Recommended: Images under 8MB for best performance</p>
+                                <input type="file" id="imageInput" accept="image/*" class="d-none">
+                            </div>
+                            <div id="previewContainer" class="preview-container d-none">
+                                <img id="imagePreview" src="" alt="Preview">
+                                <div class="remove-image" onclick="removeUploadedImage()">
+                                    <i class="bi bi-x-circle-fill text-danger"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Style Selection -->
+                        <div class="mb-4">
+                            <label for="styleSelect" class="form-label">Select Style</label>
+                            <select class="form-select" id="styleSelect">
+                                <option value="realistic_image">Realistic Image</option>
+                                <option value="digital_illustration">Digital Illustration</option>
+                                <option value="vector_illustration">Vector Illustration</option>
+                            </select>
+                        </div>
+
+                        <!-- Size Selection -->
+                        <div class="mb-4">
+                            <label for="sizeSelect" class="form-label">Select Size</label>
+                            <select class="form-select" id="sizeSelect">
+                                <option value="1024x1024">1024 x 1024</option>
+                                <option value="1365x1024">1365 x 1024</option>
+                                <option value="1024x1365">1024 x 1365</option>
+
+                            </select>
+                        </div>
+
+                        <!-- Generate Button -->
+                        <div class="text-center">
+                            <button id="testApiKeyBtn" class="btn btn-secondary me-2 d-none">Test API Key</button>
+                            <button onclick="testFirebaseStorage()" class="btn btn-info me-2 d-none">Test
+                                Firebase</button>
+                            <button id="generateBtn" class="btn btn-primary">
+                                <span id="loadingSpinner" class="spinner-border spinner-border-sm d-none" role="status"
+                                    aria-hidden="true"></span>
+                                Generate Image
+                            </button>
+                            <button class="btn btn-outline-primary" id="quickUploadBtn">Quick Upload</button>
+                        </div>
+
+                        <!-- Error Message -->
+                        <div id="errorMessage" class="alert alert-danger mt-3 d-none"></div>
+
+                        <!-- Result Container -->
+                        <div id="resultContainer" class="result-container d-none">
+                            <img id="generatedImage" src="" alt="Generated Image">
+                            <div class="action-buttons">
+                                <button onclick="saveImage()" title="Save Image">
+                                    <i class="bi bi-download"></i>
+                                </button>
+                                <button onclick="regenerateImage()" title="Regenerate">
+                                    <i class="bi bi-arrow-clockwise"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Upload Modal -->
+    <div class="modal fade" id="quickUploadModal" tabindex="-1" aria-labelledby="quickUploadModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="quickUploadModalLabel">
+                        <i class="bi bi-upload me-2"></i>Quick Upload to Gallery
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="quickUploadFile" class="form-label">Select Image</label>
+                                <input type="file" class="form-control" id="quickUploadFile" accept="image/*">
+                            </div>
+                            <div id="quickUploadPreview" class="mb-3 d-none">
+                                <img id="quickUploadImage" src="" alt="Preview" class="img-fluid rounded"
+                                    style="max-height: 200px;">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="aiTypeSelect" class="form-label">AI Type</label>
+                                <select class="form-select" id="aiTypeSelect" required>
+                                    <option value="">Select AI Type</option>
+                                    <option value="recraft_ai">Recraft AI</option>
+                                    <option value="playground_ai">Playground AI</option>
+                                    <option value="midjourney">Midjourney</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="quickUploadPrompt" class="form-label">Prompt (Optional)</label>
+                                <textarea class="form-control" id="quickUploadPrompt" rows="3"
+                                    placeholder="Describe your image or leave blank..."></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" id="submitToGalleryBtn" disabled>
+                        <span id="submitSpinner" class="spinner-border spinner-border-sm d-none me-2" role="status"
+                            aria-hidden="true"></span>
+                        Upload to Gallery
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="module" src="img_gen.js"></script>
+    <script src="../static/script.js"></script>
+
+    <script>
+        // Check login status when page loads
+        document.addEventListener('DOMContentLoaded', function () {
+            const currentUserId = localStorage.getItem('currentUserId');
+
+            if (!currentUserId) {
+                // If not logged in, redirect to home page
+                window.location.href = '../static/index.html';
+            }
+        });
+    </script>
+</body>
+
+</html>

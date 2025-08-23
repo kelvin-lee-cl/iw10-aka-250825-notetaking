@@ -1,0 +1,4 @@
+{"error":"Request failed with status code 404","level":"error","message":"Error generating image","prompt":"Panda in Space","type":"text-to-image"}
+{"error":"Request failed with status code 404","level":"error","message":"Error generating image","prompt":"Panda in Hong Kong","type":"text-to-image"}
+{"error":"Request failed with status code 404","level":"error","message":"Error generating image","prompt":"Dog","type":"text-to-image"}
+{"error":"Request failed with status code 404","level":"error","message":"Error generating image","prompt":"Dog in the snow","type":"text-to-image"}

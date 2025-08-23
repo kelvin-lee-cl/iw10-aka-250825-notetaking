@@ -1,0 +1,30 @@
+<!-- Text to Image Prompt Builder -->
+<div id="textToImageSection" class="prompt-builder">
+    <div class="row g-3">
+        <div class="col-md-4">
+            <select class="form-select prompt-select" id="characterSelect">
+                <option value="">Select Character</option>
+                <option value="Chinese Dragon">🐉 Chinese Dragon</option>
+                <option value="Child in Hanfu">👶 Child in Hanfu</option>
+                <option value="Monkey King">🐒 Monkey King (Sun Wukong)</option>
+            </select>
+        </div>
+        <div class="col-md-4">
+            <select class="form-select prompt-select" id="actionSelect">
+                <option value="">Select Action</option>
+                <option value="Painting calligraphy">🎨 Painting calligraphy</option>
+                <option value="Performing dragon dance">🐉 Performing dragon dance</option>
+                <option value="Giving red envelopes">🧧 Giving red envelopes</option>
+            </select>
+        </div>
+        <div class="col-md-4">
+            <select class="form-select prompt-select" id="settingSelect">
+                <option value="">Select Setting</option>
+                <option value="Bamboo forest">🏞️ Bamboo forest</option>
+                <option value="Spring Festival with red lanterns">🏮 Spring Festival with red lanterns and golden decorations</option>
+                <option value="Ancient Chinese palace">🏯 Ancient Chinese palace</option>
+            </select>
+        </div>
+    </div>
+    // ... rest of the code remains the same ...
+</div> 

@@ -1,0 +1,790 @@
+/* Optional CSS to enhance the modal */
+.modal-body {
+    padding: 0;
+    position: relative;
+}
+
+.btn-close {
+    background-color: white;
+    opacity: 0.8;
+    z-index: 1;
+}
+
+.btn-close:hover {
+    opacity: 1;
+}
+
+/* Responsive font sizes */
+@media (max-width: 1120px) {
+    .responsive-title {
+        font-size: 2.4rem;
+        /* Adjusted for medium screens */
+    }
+}
+
+@media (max-width: 768px) {
+    .responsive-title {
+        font-size: 1.2rem;
+        /* Adjusted for small screens */
+    }
+}
+
+@media (max-width: 480px) {
+    .responsive-title {
+        font-size: 1rem;
+        /* Further adjustment for extra small screens */
+    }
+}
+
+li.active {
+    font-weight: bold;
+}
+
+.fade-in {
+    opacity: 0;
+    transition: opacity 0.5s ease-in;
+}
+
+.fade-in.visible {
+    opacity: 1;
+}
+
+/* Mobile Navbar Styles */
+@media (max-width: 991.98px) {
+    .navbar-collapse {
+        position: absolute;
+        top: 80px;
+        left: 0;
+        right: 0;
+        background-color: #C2CF21 !important;
+        padding: 1rem;
+        z-index: 1000;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        border-radius: 0 0 8px 8px;
+        transition: all 0.3s ease-in-out;
+    }
+
+    .navbar-collapse.collapsing {
+        transition: all 0.3s ease-in-out;
+    }
+
+    .navbar-nav {
+        margin: 0;
+        padding: 0;
+    }
+
+    .navbar-nav .nav-item {
+        margin: 0.5rem 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .navbar-nav .nav-item:last-child {
+        border-bottom: none;
+    }
+
+    .navbar-nav .nav-link {
+        color: #FFFFFF !important;
+        padding: 0.75rem 1rem;
+        font-weight: 500;
+        transition: all 0.3s ease;
+    }
+
+    .navbar-nav .nav-link:hover {
+        color: #007041 !important;
+        background-color: rgba(255, 255, 255, 0.1);
+        border-radius: 4px;
+    }
+
+    .navbar-toggler,
+    .navbar-toggler.d-none,
+    .navbar-toggler.collapsed,
+    .navbar-toggler[style*="display: none"],
+    .navbar-toggler[style*="display:none"] {
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        position: relative !important;
+        z-index: 1031 !important;
+        margin-right: 1rem;
+        border: 1px solid #007041;
+        padding: 0.25rem 0.5rem;
+        transition: all 0.3s ease;
+    }
+
+    .navbar-toggler:focus {
+        box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.25);
+    }
+
+    .navbar-toggler:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .navbar-toggler-icon,
+    .navbar-toggler-icon[style*="display: none"],
+    .navbar-toggler-icon[style*="display:none"] {
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath  stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+    }
+
+    /* Ensure the navbar brand images are properly sized on mobile */
+    .navbar-brand img {
+        max-height: 60px;
+        width: auto;
+    }
+
+    /* Style the logout button in mobile menu */
+    .navbar-nav .btn-secondary {
+        margin: 0.5rem 1rem;
+        width: calc(100% - 2rem);
+        background-color: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        color: #FFFFFF;
+    }
+
+    .navbar-nav .btn-secondary:hover {
+        background-color: rgba(255, 255, 255, 0.2);
+        color: #FFFFFF;
+    }
+
+    .navbar-toggler-icon {
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='%23007041' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important;
+    }
+
+    /* Ensure proper spacing for user ID display */
+    #userIdDisplay {
+        font-size: 0.9rem;
+        margin-right: 0.5rem !important;
+    }
+}
+
+/* Ensure proper spacing for fixed navbar */
+body {
+    padding-top: 80px;
+}
+
+/* Additional mobile optimizations */
+@media (max-width: 576px) {
+    .navbar {
+        padding-left: 1rem !important;
+        padding-right: 1rem !important;
+    }
+
+    .navbar-brand {
+        margin-right: 0.5rem;
+    }
+
+    .navbar-brand img {
+        max-height: 50px;
+    }
+
+    /* Ensure the navbar doesn't interfere with other elements */
+    .navbar-collapse {
+        max-height: calc(100vh - 80px);
+        overflow-y: auto;
+    }
+
+    /* Better touch targets for mobile */
+    .navbar-nav .nav-link {
+        min-height: 44px;
+        display: flex;
+        align-items: center;
+    }
+
+    .navbar-toggler {
+        min-height: 44px;
+        min-width: 44px;
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+    }
+
+    /* Ensure proper spacing for navbar elements */
+    .navbar>.container,
+    .navbar>.container-fluid {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+    }
+
+    /* Make sure the navbar-toggler is positioned correctly */
+    .navbar-toggler {
+        order: 3;
+        margin-left: auto;
+    }
+
+    /* Ensure navbar-brand doesn't take too much space */
+    .navbar-brand {
+        flex-shrink: 0;
+    }
+}
+
+/* Extra small screens (iPhone SE, etc.) */
+@media (max-width: 375px) {
+    .navbar {
+        padding-left: 0.5rem !important;
+        padding-right: 0.5rem !important;
+    }
+
+    .navbar-brand img {
+        max-height: 40px;
+    }
+
+    .navbar-toggler {
+        min-width: 40px;
+        min-height: 40px;
+        padding: 0.2rem 0.4rem;
+    }
+
+    #userIdDisplay {
+        font-size: 0.8rem;
+        margin-right: 0.25rem !important;
+    }
+}
+
+/* Ensure the navbar is always on top */
+.navbar {
+    z-index: 1030;
+}
+
+/* Fix for iOS Safari */
+@supports (-webkit-touch-callout: none) {
+    .navbar-collapse {
+        -webkit-overflow-scrolling: touch;
+    }
+}
+
+.navbar-light .navbar-nav .nav-link:hover {
+    color: #007041;
+}
+
+.modern-title {
+    font-size: 2rem;
+    letter-spacing: -1px;
+    font-weight: 250;
+    border-left: 5px solid #FF5E62;
+    padding-left: 15px;
+    margin-bottom: 15px;
+}
+
+/* Custom navbar styling */
+.navbar {
+    background-color: #FFFFFF !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    height: 80px;
+}
+
+.navbar-light .navbar-nav .nav-link {
+    color: #333333;
+}
+
+
+
+
+.text-rotator {
+    position: relative;
+    display: flex;
+    overflow: hidden;
+}
+
+.text-item {
+    position: absolute;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+
+.text-item.active {
+    opacity: 1;
+}
+
+.button-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    position: relative;
+    top: 300px;
+}
+
+
+
+.btn {
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    margin: 0 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn:hover {
+    background-color: #0056b3;
+}
+
+h4.mb-3 {
+    font-weight: 600;
+    color: var(--text-color);
+    margin: 2rem 0;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--border-color);
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    border: none;
+    padding: 0.75rem 1.5rem;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: var(--hover-color);
+    transform: translateY(-1px);
+}
+
+
+@media (max-width: 576px) {
+    .container {
+        padding: 1rem;
+    }
+
+    .responsive-text {
+        font-size: 14px;
+        /* Adjust for small screens */
+    }
+
+    .button-container {
+        display: none;
+    }
+
+    .text-item h3 {
+        font-size: 16px;
+    }
+
+    .headline-container img {
+        width: 100%;
+        padding: 10%;
+    }
+
+    /* Mobile navbar adjustments */
+    .navbar {
+        height: auto;
+        min-height: 70px;
+        padding: 0.5rem 1rem;
+    }
+
+
+    /* User ID display for mobile */
+    #userIdDisplay {
+        position: absolute;
+        top: 50%;
+        right: 60px;
+        transform: translateY(-50%);
+        font-size: 12px;
+        background: rgba(255, 255, 255, 0.9);
+        padding: 2px 6px;
+        border-radius: 4px;
+        z-index: 1000;
+    }
+
+    /* Adjust navbar content for mobile */
+    .navbar-nav {
+        margin-top: 10px;
+    }
+}
+
+@media (min-width: 577px) and (max-width: 768px) {
+    .responsive-text {
+        font-size: 16px;
+        /* Adjust for medium screens */
+    }
+
+    .button-container {
+        display: none;
+    }
+
+    .text-item h3 {
+        font-size: 18px;
+    }
+
+    /* Medium screen navbar adjustments */
+    .navbar {
+        height: auto;
+        min-height: 75px;
+        padding: 0.5rem 1rem;
+    }
+
+
+    #userIdDisplay {
+        position: absolute;
+        top: 50%;
+        right: 70px;
+        transform: translateY(-50%);
+        font-size: 13px;
+        background: rgba(255, 255, 255, 0.9);
+        padding: 3px 8px;
+        border-radius: 4px;
+        z-index: 1000;
+    }
+}
+
+@media (min-width: 769px) and (max-width: 992px) {
+    @media (min-width: 993px) and (max-width: 1200px) {
+        .responsive-text {
+            font-size: 20px;
+            /* Adjust for extra large screens */
+        }
+
+        .button-container {
+            display: none;
+        }
+
+    }
+
+    @media (min-width: 1201px) and (max-width: 1400px) {
+        .responsive-text {
+            font-size: 22px;
+            /* Adjust for larger extra large screens */
+        }
+
+        .button-container {
+            display: none;
+        }
+    }
+
+    @media (min-width: 1401px) and (max-width: 1600px) {
+        .responsive-text {
+            font-size: 24px;
+            /* Adjust for even larger screens */
+        }
+
+    }
+
+    @media (min-width: 1601px) and (max-width: 18000px) {
+        .responsive-text {
+            font-size: 26px;
+            /* Adjust for very large screens up to 18,000 pixels */
+        }
+    }
+
+    .scrollable-textarea {
+        height: 200px;
+        /* Set a fixed height */
+        overflow-y: auto;
+        /* Enable vertical scrolling */
+    }
+
+    #sectionTitle {
+        transition: opacity 0.3s ease;
+        margin-left: 1rem;
+        font-weight: 500;
+    }
+
+
+    /* ... existing styles ... */
+
+    .section-box {
+        background-color: #ffffff;
+        border-radius: 16px;
+        box-shadow: 0 4px 24px rgba(0, 0, 0, 0.05);
+        padding: 2rem;
+        margin: 1rem 0;
+        transition: all 0.3s ease;
+    }
+
+    .section-box:hover {
+        box-shadow: 0 6px 28px rgba(0, 0, 0, 0.08);
+        transform: translateY(-2px);
+    }
+
+    .section-box img.round {
+        border-radius: 12px;
+        transition: transform 0.3s ease;
+    }
+
+    .section-box {
+        background-color: transparent;
+        padding: 1.5rem;
+        border-radius: 12px;
+    }
+
+    @media (max-width: 768px) {
+        .section-box {
+            padding: 1rem;
+        }
+
+
+    }
+
+    li.active {
+        font-weight: bold;
+    }
+
+    /* Add hover animation for the buttons */
+    .btn.rounded-pill:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        color: inherit !important;
+        /* Keep the original text color */
+    }
+
+    /* Ensure WhatsApp button text colors stay fixed */
+    .btn.btn-warning.rounded-pill {
+        color: white !important;
+    }
+
+    .btn.btn-warning.rounded-pill:hover {
+        color: white !important;
+    }
+
+    .btn.btn-info.rounded-pill {
+        color: white !important;
+    }
+
+    .btn.btn-info.rounded-pill:hover {
+        color: white !important;
+    }
+
+    .btn.btn-primary.rounded-pill {
+        color: white !important;
+    }
+
+    .btn.btn-primary.rounded-pill:hover {
+        color: white !important;
+    }
+
+    /* Prompt Card Styles */
+    .card.mb-3 {
+        transition: box-shadow 0.3s ease, transform 0.2s ease;
+        border: 1px solid var(--border-color);
+        overflow: hidden;
+        border-radius: 10px;
+    }
+
+    .card.mb-3:hover {
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+        transform: translateY(-2px);
+    }
+
+    .card-header {
+        background-color: var(--secondary-color) !important;
+        border-bottom: 1px solid var(--border-color);
+        padding: 0.75rem 1.25rem;
+    }
+
+    .prompt-card .card-header {
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+    }
+
+    .action-buttons {
+        opacity: 1;
+    }
+
+    .card-body:hover .action-buttons {
+        opacity: 1;
+    }
+
+    .action-buttons .btn {
+        width: 32px;
+        height: 32px;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.2s ease;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+        border: none;
+    }
+
+    .action-buttons .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    }
+
+    .action-buttons .btn i {
+        font-size: 0.8rem;
+    }
+
+    .copy-btn {
+        background-color: #f8f9fa;
+        color: #6c757d;
+        border: 1px solid #dee2e6 !important;
+    }
+
+    .copy-btn:hover {
+        background-color: #6c757d;
+        color: white;
+    }
+
+    .edit-btn {
+        background-color: #f8f9fa;
+        color: #0d6efd;
+        border: 1px solid #dee2e6 !important;
+    }
+
+    .edit-btn:hover {
+        background-color: var(--primary-color);
+        color: white;
+    }
+
+    .delete-btn {
+        background-color: #f8f9fa;
+        color: #dc3545;
+        border: 1px solid #dee2e6 !important;
+    }
+
+    .delete-btn:hover {
+        background-color: #dc3545;
+        color: white;
+    }
+
+    .btn-secondary {
+        background-color: #6c757d;
+    }
+
+    .btn-secondary:hover {
+        background-color: #5a6268;
+    }
+
+    .btn-primary {
+        background-color: #0d6efd;
+    }
+
+    .btn-primary:hover {
+        background-color: #0b5ed7;
+    }
+
+    .btn-danger {
+        background-color: #dc3545;
+    }
+
+    .btn-danger:hover {
+        background-color: #bb2d3b;
+    }
+
+    .card-body {
+        padding: 1.5rem;
+    }
+
+    .card-text {
+        font-size: 1.05rem;
+        line-height: 1.5;
+        color: #445566;
+    }
+
+    /* Mobile navbar adjustments */
+    @media (max-width: 768px) {
+        .navbar {
+            padding: 0.5rem 1rem !important;
+            height: auto;
+            min-height: 70px;
+        }
+
+        .navbar .d-flex {
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .flu_logo img {
+            width: 80px !important;
+            margin: 0 !important;
+        }
+
+        .school_logo img {
+            width: 80px !important;
+            padding-top: 15px !important;
+        }
+
+        /* User ID display for mobile */
+        #userIdDisplay {
+            position: absolute;
+            top: 5px;
+            right: 60px;
+            font-size: 12px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 2px 6px;
+            border-radius: 4px;
+            z-index: 1000;
+        }
+
+        /* Ensure navbar toggler is visible */
+        .navbar-toggler {
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            padding: 0.25rem 0.5rem;
+            font-size: 1rem;
+        }
+
+        /* Adjust navbar collapse for mobile */
+        .navbar-collapse {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-top: 10px;
+            padding: 10px;
+        }
+
+        .navbar-nav {
+            margin-top: 10px;
+        }
+
+        .navbar-nav .nav-item {
+            margin: 5px 0;
+        }
+
+        .navbar-nav .nav-link {
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: background-color 0.2s;
+        }
+
+        .navbar-nav .nav-link:hover {
+            background-color: #f8f9fa;
+        }
+    }
+
+    /* Medium screen adjustments */
+    @media (min-width: 769px) and (max-width: 992px) {
+
+
+        #userIdDisplay {
+            position: absolute;
+            top: 8px;
+            right: 70px;
+            font-size: 13px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 3px 8px;
+            border-radius: 4px;
+            z-index: 1000;
+        }
+    }
+
+    /* Large screen adjustments */
+    @media (min-width: 993px) {
+
+
+        #userIdDisplay {
+            position: absolute;
+            top: 10px;
+            right: 80px;
+            font-size: 14px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 4px 10px;
+            border-radius: 4px;
+            z-index: 1000;
+        }
+    }
+}
+
+
+#image1-container:hover #image1,
+#image2-container:hover #image2 {
+    border: 2px dashed #007041 !important;
+    transform: scale(1.02);
+}
+
+#image1-container:active #image1,
+#image2-container:active #image2 {
+    transform: scale(0.98);
+}
