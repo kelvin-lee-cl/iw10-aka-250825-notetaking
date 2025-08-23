@@ -40,8 +40,6 @@
         }
 
 
-
-
         .text-rotator {
             position: relative;
             display: flex;
@@ -65,7 +63,6 @@
             position: relative;
             top: 300px;
         }
-
 
 
         .btn {
@@ -132,7 +129,6 @@
                 min-height: 70px;
                 padding: 0.5rem 1rem;
             }
-
 
             /* User ID display for mobile */
             #userIdDisplay {
@@ -544,10 +540,17 @@
             <a class="navbar-brand flu_logo" href="https://future-leaders-union.odoo.com/zh_TW" target="_blank">
                 <img class="mx-2" src="images/FLU_logo2.png" width="100" class="d-inline-block align-top" alt="">
             </a>
-            <a class="navbar-brand school_logo" href="https://www.aka.org.hk/" target="_blank">
-                <img src="/images/aka_logo.png" class="d-inline-block align-top" style="padding-top:25px;"
-                    alt="AKA Logo" width="120" height="auto">
+            <a class="navbar-brand school_logo" style="padding-top:50px;" href="https://www.aka.org.hk/"
+                target="_blank">
+                <img src="/images/aka_logo.png" class="d-inline-block align-top" alt="AKA Logo" width="120"
+                    height="auto">
             </a>
+        </div>
+
+        <!-- Centered User ID -->
+        <div class="d-none position-absolute start-50 translate-middle-x" id="userIdDisplay"
+            style="top: 30%; transform: translate(-50%, -50%); z-index: 1001; background: rgba(255,255,255,0.9);  border-radius: 6px; width:120px; margin-left:-10px;">
+            <span class="nav-link fw-bold text-primary fs-6 m-0 p-0"></span>
         </div>
 
 
@@ -581,7 +584,6 @@
             </ul>
         </div>
     </nav>
-
 
 
     <div class="container">
@@ -645,7 +647,8 @@
                             <label for="passcode" class="mt-4 form-label">Passkey (3 digits)</label>
                             <input type="text" class="form-control" id="passcode" maxlength="4" required>
                         </div>
-                        <button type="submit" class="btn btn-primary mx-4 mb-4">Confirm</button>
+                        <button type="submit" class="btn btn-primary mx-4 mb-4"
+                            style="display: block !important; visibility: visible !important;">Confirm</button>
                     </form>
                 </div>
             </div>
@@ -653,8 +656,32 @@
     </div>
     <script src="script.js"></script>
     <script>
-        // This functionality has been moved to script.js with proper error handling
-        // to prevent JavaScript errors when elements don't exist
+        // Debug modal and button visibility
+        document.addEventListener('DOMContentLoaded', function () {
+            console.log('DOM loaded, checking modal elements...');
+
+            // Check if login modal exists
+            const loginModal = document.getElementById('loginModal');
+            console.log('Login modal found:', !!loginModal);
+
+            // Check if submit button exists
+            const submitBtn = document.querySelector('#loginForm button[type="submit"]');
+            console.log('Submit button found:', !!submitBtn);
+
+            // Add click handler to login button to debug modal opening
+            const loginBtn = document.querySelector('[data-bs-target="#loginModal"]');
+            if (loginBtn) {
+                loginBtn.addEventListener('click', function () {
+                    console.log('Login button clicked, modal should open');
+                    setTimeout(() => {
+                        const modal = document.getElementById('loginModal');
+                        const submitButton = modal.querySelector('button[type="submit"]');
+                        console.log('Modal visible:', modal.classList.contains('show'));
+                        console.log('Submit button visible:', submitButton.style.display);
+                    }, 100);
+                });
+            }
+        });
     </script>
 
 
