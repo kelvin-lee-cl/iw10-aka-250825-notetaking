@@ -746,7 +746,10 @@ h4.mb-3 {
 
     /* Medium screen adjustments */
     @media (min-width: 769px) and (max-width: 992px) {
-
+        .school_logo {
+            padding: 0 !important;
+            margin: 0 !important;
+        }
 
         #userIdDisplay {
             position: absolute;
@@ -777,6 +780,22 @@ h4.mb-3 {
     }
 }
 
+.card-footer {
+    background-color: #fff;
+    border-top: 1px solid #e0e0e0;
+    padding: 15px;
+}
+
+.card-footer .btn {
+    opacity: 1 !important;
+    visibility: visible !important;
+    display: inline-block !important;
+}
+
+.card-footer .d-flex {
+    opacity: 1 !important;
+    visibility: visible !important;
+}
 
 #image1-container:hover #image1,
 #image2-container:hover #image2 {

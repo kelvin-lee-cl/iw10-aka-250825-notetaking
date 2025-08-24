@@ -20,7 +20,6 @@
 
 
 
-
 </head>
 
 <body>
@@ -30,7 +29,7 @@
                 <img class="mx-2" src="images/FLU_logo2.png" width="100" class="d-inline-block align-top" alt="">
             </a>
             <a class="navbar-brand school_logo" href="https://www.aka.org.hk/" target="_blank">
-                <img src="/images/aka_logo.png" class="d-inline-block align-top" ;" alt="AKA Logo" width="120"
+                <img src="/images/aka_logo.png" class="d-inline-block align-top" alt="AKA Logo" width="120"
                     height="auto">
             </a>
         </div>
@@ -56,10 +55,10 @@
                     <a class="nav-link" href="classppt.html">Lessons</a>
                 </li>
 
-                <li class="nav-item active d-none" id="exercise1">
+                <li class="nav-item d-none" id="exercise1">
                     <a class="nav-link" href="exercise1.html">1.心智圖</a>
                 </li>
-                <li class="nav-item d-none" id="exercise2">
+                <li class="nav-item active d-none" id="exercise2">
                     <a class="nav-link" href="exercise2.html">2.圖像筆記</a>
                 </li>
                 <li class="nav-item d-none" id="exercise3">
@@ -74,11 +73,11 @@
     </nav>
     <div style="display: flex; gap: 20px; padding: 20px; align-items: flex-start; max-width: 1200px; margin: 0 auto;">
         <div id="image1-container" style="flex: 2; transition: flex 0.3s ease; cursor: pointer;">
-            <img id="image1" src="images/slides/7.png"
+            <img id="image1" src="images/slides/10.png"
                 style="width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); border: 2px solid transparent; transition: all 0.3s ease;">
         </div>
         <div id="image2-container" style="flex: 1; transition: flex 0.3s ease; cursor: pointer;">
-            <img id="image2" src="images/slides/9.png"
+            <img id="image2" src="images/slides/12.png"
                 style="width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); border: 2px solid transparent; transition: all 0.3s ease;">
         </div>
     </div>
@@ -90,29 +89,29 @@
             <div class="col-12">
                 <h3 class="mb-4"
                     style="color: #333; font-weight: 600; border-bottom: 2px solid #007bff; padding-bottom: 10px;">
-                    <i class="fas fa-pencil-alt me-2"></i>心智圖練習 - 圖片上傳
-                    <a href="https://excalidraw.com/" target="_blank" class="btn btn-primary"
-                        style="background-color: #007bff; border: none; padding: 12px 24px; border-radius: 8px; font-weight: 500; transition: all 0.3s ease;">
-                        <i class="fas fa-external-link-alt me-2"></i>開啟 Excalidraw
-                    </a>
+                    <i class="fas fa-pencil-alt me-2"></i>圖像筆記練習 - Excalidraw
                 </h3>
 
                 <!-- Action Buttons -->
                 <div class="d-flex gap-3 mb-4">
+                    <a href="https://excalidraw.com/" target="_blank" class="btn btn-primary"
+                        style="background-color: #007bff; border: none; padding: 12px 24px; border-radius: 8px; font-weight: 500; transition: all 0.3s ease;">
+                        <i class="fas fa-external-link-alt me-2"></i>開啟 Excalidraw
+                    </a>
                     <button id="submitBtn" class="btn btn-success"
                         style="background-color: #28a745; border: none; padding: 12px 24px; border-radius: 8px; font-weight: 500; transition: all 0.3s ease;">
-                        <i class="fas fa-cloud-upload-alt me-2"></i>上傳心智圖
+                        <i class="fas fa-paper-plane me-2"></i>提交作品
                     </button>
                 </div>
 
-                <!-- Image Upload Input -->
+                <!-- Link Input -->
                 <div class="mb-4">
-                    <label for="imageUpload" class="form-label"
+                    <label for="excalidrawLink" class="form-label"
                         style="font-weight: 600; color: #555; margin-bottom: 8px;">
-                        <i class="fas fa-image me-2"></i>上傳心智圖圖片
+                        <i class="fas fa-link me-2"></i>Excalidraw 連結
                     </label>
                     <div class="input-group">
-                        <input type="file" id="imageUpload" class="form-control" accept="image/*"
+                        <input type="url" id="excalidrawLink" class="form-control" placeholder="請貼上您的 Excalidraw 連結..."
                             style="border: 2px solid #e0e0e0; border-radius: 8px; padding: 12px; font-size: 16px; transition: border-color 0.3s ease;">
                         <button class="btn btn-outline-secondary" type="button" id="previewBtn"
                             style="border: 2px solid #e0e0e0; border-left: none; border-radius: 0 8px 8px 0; padding: 12px 16px;">
@@ -120,7 +119,7 @@
                         </button>
                     </div>
                     <div class="form-text" style="color: #6c757d; font-size: 14px; margin-top: 5px;">
-                        <i class="fas fa-info-circle me-1"></i>支援 JPG, PNG, GIF 等圖片格式，檔案大小建議不超過 5MB
+                        <i class="fas fa-info-circle me-1"></i>請確保連結是公開可訪問的
                     </div>
                 </div>
 
@@ -370,14 +369,12 @@
         let rotationInterval; // Variable to hold the interval
 
         function rotateText() {
-            if (items.length === 0) return;
             items[currentIndex]?.classList.remove('active');
             currentIndex = (currentIndex + 1) % items.length;
             items[currentIndex]?.classList.add('active');
         }
 
         function showText(index) {
-            if (items.length === 0) return;
             const newIndex = parseInt(index);
             if (isNaN(newIndex) || newIndex < 0 || newIndex >= items.length) {
                 console.warn('Invalid index:', index);
@@ -390,31 +387,24 @@
         }
 
         function startRotation() {
-            if (items.length > 0) {
-                rotationInterval = setInterval(rotateText, 5000); // Change text every 5 seconds
-            }
+            rotationInterval = setInterval(rotateText, 5000); // Change text every 3 seconds
         }
 
         function stopRotation() {
-            if (rotationInterval) {
-                clearInterval(rotationInterval); // Stop the rotation
-            }
+            clearInterval(rotationInterval); // Stop the rotation
         }
 
         // Start the rotation on page load
         startRotation();
 
         buttons.forEach(button => {
-            const dataIndex = button.getAttribute('data-index');
-            if (dataIndex !== null) {
-                button.addEventListener('mouseover', () => {
-                    stopRotation(); // Stop rotation on mouse over
-                    showText(dataIndex);
-                });
-                button.addEventListener('mouseleave', () => {
-                    startRotation(); // Resume rotation on mouse leave
-                });
-            }
+            button.addEventListener('mouseover', () => {
+                stopRotation(); // Stop rotation on mouse over
+                showText(button.getAttribute('data-index'));
+            });
+            button.addEventListener('mouseleave', () => {
+                startRotation(); // Resume rotation on mouse leave
+            });
         });
 
         // Font size variable for the rich text editor
@@ -518,7 +508,6 @@
         });
 
         document.addEventListener('DOMContentLoaded', function () {
-            // Only initialize elements that exist in exercise1.html
             const imageUpload = document.getElementById('imageUpload');
             const imagePreview = document.getElementById('imagePreview');
             const uploadButton = document.getElementById('uploadButton');
@@ -526,16 +515,235 @@
             const uploadStatus = document.getElementById('uploadStatus');
             const uploadStatusMessage = document.getElementById('uploadStatusMessage');
             const uploadProgress = document.getElementById('uploadProgress');
+            const displayUserId = document.getElementById('displayUserId');
+            const changeUserIdBtn = document.getElementById('changeUserIdBtn');
+            const testConnectionBtn = document.getElementById('testConnectionBtn');
 
+            // Initialize prompts display
+            loadPrompts();
 
+            // Handle prompt edit modal
+            const savePromptEditBtn = document.getElementById('savePromptEdit');
+            if (savePromptEditBtn) {
+                savePromptEditBtn.addEventListener('click', updatePrompt);
+            }
 
+            // Set up refresh button
+            const refreshBtn = document.getElementById('refreshPrompts');
+            if (refreshBtn) {
+                refreshBtn.addEventListener('click', () => {
+                    refreshBtn.disabled = true;
+                    const icon = refreshBtn.querySelector('i');
+                    icon.classList.add('fa-spin');
+                    loadPrompts().finally(() => {
+                        setTimeout(() => {
+                            refreshBtn.disabled = false;
+                            icon.classList.remove('fa-spin');
+                        }, 500);
+                    });
+                });
+            }
 
+            // Set up sort buttons
+            const sortNewestBtn = document.getElementById('sortNewest');
+            const sortOldestBtn = document.getElementById('sortOldest');
 
+            if (sortNewestBtn) {
+                sortNewestBtn.addEventListener('click', () => {
+                    loadPrompts('desc');
+                });
+            }
 
+            if (sortOldestBtn) {
+                sortOldestBtn.addEventListener('click', () => {
+                    loadPrompts('asc');
+                });
+            }
 
+            // Function to test Firebase connectivity
+            async function testFirebaseConnection() {
+                if (!window.fbStorage) {
+                    alert('Firebase 儲存還未初始化');
+                    return false;
+                }
 
+                try {
+                    const testRef = ref(window.fbStorage, `.connection_test_${Date.now()}`);
+                    const testBlob = new Blob(['connection_test'], { type: 'text/plain' });
 
+                    // Try to upload a small test file
+                    await uploadBytes(testRef, testBlob);
 
+                    // Try to get the download URL
+                    const downloadURL = await getDownloadURL(testRef);
+
+                    console.log('Firebase connection test successful:', downloadURL);
+                    alert('Firebase 連接測試成功！上傳功能已正常運作。');
+                    return true;
+                } catch (error) {
+                    console.error('Firebase connection test failed:', error);
+
+                    // Check if it's a permission error
+                    if (error.code === 'storage/unauthorized') {
+                        alert('Firebase 連接正常，但權限受限。請聯絡管理員獲取上傳權限。');
+                        return true; // Connection works, just permissions issue
+                    } else {
+                        alert(`Firebase 連接測試失敗: ${error.message}`);
+                        return false;
+                    }
+                }
+            }
+
+            // Add event listener for test connection button
+            testConnectionBtn.addEventListener('click', function () {
+                testFirebaseConnection();
+            });
+
+            // Update user ID display
+            function updateUserIdDisplay() {
+                const currentUserId = localStorage.getItem('currentUserId') || '未設置';
+                displayUserId.textContent = currentUserId;
+            }
+
+            // Initialize user ID display
+            updateUserIdDisplay();
+
+            // Handle user ID change button
+            changeUserIdBtn.addEventListener('click', function () {
+                const currentUserId = localStorage.getItem('currentUserId') || '';
+                const newUserId = prompt('請輸入新的用戶ID:', currentUserId);
+                if (newUserId && newUserId.trim() !== '') {
+                    localStorage.setItem('currentUserId', newUserId.trim());
+                    updateUserIdDisplay();
+                    alert('用戶ID已更新!');
+                }
+            });
+
+            // Preview images
+            imageUpload.addEventListener('change', function (e) {
+                imagePreview.innerHTML = ''; // Clear existing previews
+
+                [...e.target.files].forEach(file => {
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        const preview = document.createElement('div');
+                        preview.className = 'position-relative';
+                        preview.innerHTML = `
+                                                        <img src="${e.target.result}" style="max-width: 200px; max-height: 200px; object-fit: contain;">
+                                                `;
+                        imagePreview.appendChild(preview);
+                    }
+                    reader.readAsDataURL(file);
+                });
+            });
+
+            // Handle upload
+            uploadButton.addEventListener('click', async function () {
+                const files = imageUpload.files;
+                const currentUserId = localStorage.getItem('currentUserId');
+
+                // Check for user ID
+                if (!currentUserId) {
+                    // Prompt the user to enter a user ID if not already set
+                    const userId = prompt('請輸入您的用戶ID:');
+                    if (!userId) {
+                        alert('需要用戶ID才能上傳圖片');
+                        return;
+                    }
+                    localStorage.setItem('currentUserId', userId);
+                }
+
+                if (!files.length || !imageName.value) {
+                    alert('請選擇圖片並入名稱');
+                    return;
+                }
+
+                try {
+                    uploadButton.disabled = true;
+                    uploadButton.textContent = '上傳中...';
+                    uploadStatus.classList.remove('d-none');
+                    uploadStatusMessage.textContent = '準備上傳...';
+
+                    // Reset progress bar
+                    uploadProgress.style.width = '0%';
+                    uploadProgress.textContent = '0%';
+
+                    // Test Firebase connection first
+                    uploadStatusMessage.textContent = '檢查 Firebase 連接...';
+                    try {
+                        const testRef = ref(window.fbStorage, `.connection_test_${Date.now()}`);
+                        const testBlob = new Blob(['connection_test'], { type: 'text/plain' });
+                        await uploadBytes(testRef, testBlob);
+                        uploadStatusMessage.textContent = 'Firebase 連接成功，開始上傳...';
+                    } catch (connectionError) {
+                        // Check if it's a permission error
+                        if (connectionError.code === 'storage/unauthorized') {
+                            console.log('Firebase connection works but lacks permissions');
+                            uploadStatusMessage.textContent = 'Firebase 連接正常，但權限受限。繼續嘗試上傳...';
+                            // Continue with upload attempt anyway
+                        } else {
+                            throw new Error(`Firebase 連接失敗: ${connectionError.message}`);
+                        }
+                    }
+
+                    let successCount = 0;
+                    for (let i = 0; i < files.length; i++) {
+                        const file = files[i];
+                        const timestamp = Date.now();
+                        const fileName = `${currentUserId}_${imageName.value}_${timestamp}_${i}`;
+                        const storageRef = ref(window.fbStorage, `stories/${fileName}`);
+
+                        // Update progress status
+                        const progressPercent = Math.round((i / files.length) * 100);
+                        uploadProgress.style.width = `${progressPercent}%`;
+                        uploadProgress.textContent = `${progressPercent}%`;
+                        uploadStatusMessage.textContent = `正在上傳文件 ${i + 1}/${files.length}: ${file.name}`;
+
+                        try {
+                            await uploadBytes(storageRef, file);
+                            const downloadURL = await getDownloadURL(storageRef);
+                            console.log('File uploaded:', downloadURL);
+                            successCount++;
+                        } catch (fileError) {
+                            console.error(`Error uploading ${file.name}:`, fileError);
+
+                            // Check if it's a permission error
+                            if (fileError.code === 'storage/unauthorized') {
+                                uploadStatusMessage.textContent = `上傳 ${file.name} 失敗: 權限不足，請聯絡管理員`;
+                            } else {
+                                uploadStatusMessage.textContent = `上傳 ${file.name} 失敗: ${fileError.message}`;
+                            }
+                        }
+                    }
+
+                    // Set progress to 100%
+                    uploadProgress.style.width = '100%';
+                    uploadProgress.textContent = '100%';
+
+                    if (successCount === files.length) {
+                        uploadStatusMessage.textContent = `全部 ${files.length} 個文件上傳成功！`;
+                        alert('圖片上傳成功！');
+                    } else {
+                        uploadStatusMessage.textContent = `成功上傳 ${successCount}/${files.length} 個文件。`;
+                        alert(`部分上傳成功：${successCount}/${files.length} 個文件`);
+                    }
+
+                    imageUpload.value = '';
+                    imageName.value = '';
+                    imagePreview.innerHTML = '';
+
+                } catch (error) {
+                    console.error('Upload error:', error);
+                    uploadStatusMessage.textContent = `上傳錯誤: ${error.message}`;
+                    alert(`上傳失敗，請重試: ${error.message}`);
+                } finally {
+                    uploadButton.disabled = false;
+                    uploadButton.textContent = '上傳圖片';
+                    setTimeout(() => {
+                        uploadStatus.classList.add('d-none'); // Hide status after a delay
+                    }, 5000);
+                }
+            });
         });
 
 
@@ -600,9 +808,248 @@
 
 
 
+        // Load stories from Firestore
+        async function loadStories(sortDirection = 'desc') {
+            const storiesContainer = document.getElementById('storiesContainer');
+            const loadingStories = document.getElementById('loadingStories');
 
+            console.log('Loading stories...', { storiesContainer: !!storiesContainer, fbDB: !!window.fbDB });
 
+            if (!storiesContainer || !window.fbDB) {
+                console.error('Missing required elements:', { storiesContainer: !!storiesContainer, fbDB: !!window.fbDB });
+                return;
+            }
 
+            try {
+                // Show loading indicator
+                if (loadingStories) {
+                    loadingStories.classList.remove('d-none');
+                }
+
+                // Clear existing content
+                storiesContainer.innerHTML = '';
+
+                // Get current user ID for permission checks
+                const currentUserId = localStorage.getItem('currentUserId') || '';
+                const isAdmin = currentUserId === 'M514';
+
+                // Query stories, ordered by timestamp
+                const storiesCollection = collection(window.fbDB, 'stories');
+                const q = query(storiesCollection, orderBy('createdAt', sortDirection));
+                const querySnapshot = await getDocs(q);
+
+                // Hide loading indicator
+                if (loadingStories) {
+                    loadingStories.classList.add('d-none');
+                }
+
+                if (querySnapshot.empty) {
+                    const noStoriesMsg = document.createElement('div');
+                    noStoriesMsg.className = 'alert alert-secondary text-center';
+                    noStoriesMsg.textContent = '尚未有人提交故事結構';
+                    storiesContainer.appendChild(noStoriesMsg);
+                    return;
+                }
+
+                // Process each story document
+                console.log(`Found ${querySnapshot.size} stories`);
+                querySnapshot.forEach(doc => {
+                    const storyData = doc.data();
+                    const storyId = doc.id;
+                    const canEdit = isAdmin || storyData.userId === currentUserId;
+
+                    console.log('Processing story:', { storyId, userId: storyData.userId, content: storyData.content });
+
+                    // Format timestamp
+                    let timestampStr = '剛剛';
+                    if (storyData.timestamp) {
+                        const timestamp = storyData.timestamp.toDate();
+                        timestampStr = new Intl.DateTimeFormat('zh-HK', {
+                            year: 'numeric',
+                            month: 'numeric',
+                            day: 'numeric',
+                            hour: '2-digit',
+                            minute: '2-digit'
+                        }).format(timestamp);
+                    }
+
+                    // Create story card
+                    const storyCard = document.createElement('div');
+                    storyCard.className = 'card mb-3 story-card';
+                    storyCard.innerHTML = `
+                        <div class="card-header d-flex justify-content-between align-items-center bg-light">
+                            <span class="fw-semibold"><i class="fas fa-user-circle me-2"></i>${storyData.userId || '匿名'}</span>
+                            <small class="text-muted"><i class="far fa-clock me-1"></i>${timestampStr}</small>
+                        </div>
+                        <div class="card-body">
+                            <div class="story-content">
+                                <h6 class="text-primary mb-2"><i class="fas fa-book me-2"></i>故事內容</h6>
+                                <div class="card-text" style="white-space: pre-wrap; line-height: 1.6;">${storyData.content.replace(/\n/g, '<br>')}</div>
+                            </div>
+                            ${canEdit ? `
+                            <div class="text-end mt-3">
+                                <button class="btn btn-sm btn-outline-danger delete-story-btn" data-id="${storyId}">
+                                    <i class="fas fa-trash me-1"></i>刪除
+                                </button>
+                            </div>
+                            ` : ''}
+                        </div>
+                    `;
+
+                    storiesContainer.appendChild(storyCard);
+
+                    // Add delete functionality
+                    const deleteBtn = storyCard.querySelector('.delete-story-btn');
+                    if (deleteBtn) {
+                        deleteBtn.addEventListener('click', function () {
+                            const storyId = this.getAttribute('data-id');
+                            if (confirm('確定要刪除這個故事嗎？')) {
+                                deleteStory(storyId);
+                            }
+                        });
+                    }
+                });
+
+            } catch (error) {
+                console.error('Error loading stories:', error);
+                if (loadingStories) {
+                    loadingStories.classList.add('d-none');
+                }
+
+                const errorMsg = document.createElement('div');
+                errorMsg.className = 'alert alert-danger';
+
+                // Handle Firebase permission errors
+                if (error.code === 'permission-denied' || error.message.includes('permission')) {
+                    errorMsg.textContent = 'Firebase 權限不足。請聯絡管理員獲取讀取權限。';
+                } else {
+                    errorMsg.textContent = `載入故事失敗: ${error.message}`;
+                }
+
+                storiesContainer.appendChild(errorMsg);
+            }
+        }
+
+        // Delete story function
+        async function deleteStory(storyId) {
+            try {
+                const storyRef = doc(window.fbDB, 'stories', storyId);
+                await deleteDoc(storyRef);
+                alert('故事已刪除');
+                loadStories();
+            } catch (error) {
+                console.error('Error deleting story:', error);
+                alert(`刪除失敗: ${error.message}`);
+            }
+        }
+
+        // Initialize story functionality when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function () {
+            // Story Structure Form Handling
+            const storyStructureForm = document.getElementById('storyStructureForm');
+            if (storyStructureForm) {
+                storyStructureForm.addEventListener('submit', async function (event) {
+                    event.preventDefault();
+
+                    const storyContent = document.getElementById('storyContent').value.trim();
+
+                    // Check if story content is provided
+                    if (!storyContent) {
+                        alert('請填寫故事內容');
+                        return;
+                    }
+
+                    const currentUserId = localStorage.getItem('currentUserId');
+                    if (!currentUserId) {
+                        alert('請先登入或設置用戶ID');
+                        return;
+                    }
+
+                    try {
+                        // Show loading state
+                        const submitBtn = storyStructureForm.querySelector('button[type="submit"]');
+                        const originalBtnText = submitBtn.innerHTML;
+                        submitBtn.disabled = true;
+                        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>提交中...';
+
+                        console.log('Submitting story:', { content: storyContent, userId: currentUserId });
+
+                        // Check if Firebase is available
+                        if (!window.fbDB) {
+                            throw new Error('Firebase 未初始化，請刷新頁面重試');
+                        }
+
+                        // Add story to Firestore
+                        const storiesCollection = collection(window.fbDB, 'stories');
+                        const newStory = {
+                            content: storyContent,
+                            userId: currentUserId,
+                            timestamp: serverTimestamp(),
+                            createdAt: new Date().toISOString()
+                        };
+
+                        console.log('Adding story to Firestore:', newStory);
+                        const docRef = await addDoc(storiesCollection, newStory);
+                        console.log('Story saved with ID:', docRef.id);
+
+                        // Clear the form
+                        storyStructureForm.reset();
+
+                        // Show success message
+                        alert('故事結構保存成功！');
+
+                        // Refresh the stories display
+                        loadStories();
+
+                    } catch (error) {
+                        console.error('Error saving story:', error);
+
+                        // Handle Firebase permission errors
+                        if (error.code === 'permission-denied' || error.message.includes('permission')) {
+                            alert('Firebase 權限不足。請聯絡管理員獲取寫入權限。');
+                        } else {
+                            alert(`保存失敗: ${error.message}`);
+                        }
+                    } finally {
+                        // Restore button state
+                        const submitBtn = storyStructureForm.querySelector('button[type="submit"]');
+                        if (submitBtn) {
+                            submitBtn.disabled = false;
+                            submitBtn.innerHTML = originalBtnText;
+                        }
+                    }
+                });
+            } else {
+                console.error('Story structure form not found');
+            }
+
+            // Load stories on page load
+            loadStories();
+
+            // Set up refresh button
+            const refreshStoriesBtn = document.getElementById('refreshStories');
+            if (refreshStoriesBtn) {
+                refreshStoriesBtn.addEventListener('click', () => {
+                    refreshStoriesBtn.disabled = true;
+                    const icon = refreshStoriesBtn.querySelector('i');
+                    icon.classList.add('fa-spin');
+                    loadStories().finally(() => {
+                        setTimeout(() => {
+                            refreshStoriesBtn.disabled = false;
+                            icon.classList.remove('fa-spin');
+                        }, 500);
+                    });
+                });
+            }
+
+            // Set up sort button
+            const sortStoriesNewestBtn = document.getElementById('sortStoriesNewest');
+            if (sortStoriesNewestBtn) {
+                sortStoriesNewestBtn.addEventListener('click', () => {
+                    loadStories('desc');
+                });
+            }
+        });
 
         // Add copyToClipboard function if it doesn't exist
         function copyToClipboard(text) {
@@ -617,93 +1064,57 @@
         // Testing code for debugging purposes
         console.log("Script initialized");
 
-        // Image Upload Submission System
+        // Excalidraw Submission System
         document.addEventListener('DOMContentLoaded', function () {
             const submitBtn = document.getElementById('submitBtn');
-            const imageUpload = document.getElementById('imageUpload');
+            const excalidrawLink = document.getElementById('excalidrawLink');
             const previewBtn = document.getElementById('previewBtn');
             const previewSection = document.getElementById('previewSection');
             const previewFrame = document.getElementById('previewFrame');
             const submissionsContainer = document.getElementById('submissionsContainer');
             const loadingSubmissions = document.getElementById('loadingSubmissions');
 
-            if (!submitBtn || !imageUpload || !previewBtn || !previewSection || !previewFrame || !submissionsContainer || !loadingSubmissions) {
-                console.log('Image upload elements not found, skipping initialization');
+            if (!submitBtn || !excalidrawLink || !previewBtn || !previewSection || !previewFrame || !submissionsContainer || !loadingSubmissions) {
+                console.log('Excalidraw elements not found, skipping initialization');
                 return;
             }
 
-            console.log('Initializing image upload system...');
+            console.log('Initializing Excalidraw system...');
 
-            // Auto-preview when file is selected
-            imageUpload.addEventListener('change', function () {
-                const file = imageUpload.files[0];
-                if (file) {
-                    if (!isValidImageFile(file)) {
-                        alert('請選擇有效的圖片檔案 (JPG, PNG, GIF)');
-                        imageUpload.value = '';
-                        return;
-                    }
-
-                    const reader = new FileReader();
-                    reader.onload = function (e) {
-                        previewSection.style.display = 'block';
-                        previewFrame.innerHTML = `
-                            <img src="${e.target.result}" 
-                                 style="max-width: 100%; max-height: 500px; object-fit: contain;" 
-                                 alt="Preview">
-                        `;
-                    };
-                    reader.readAsDataURL(file);
-                } else {
-                    previewSection.style.display = 'none';
-                    previewFrame.innerHTML = '';
-                }
-            });
-
-            // Manual preview button functionality
+            // Preview functionality
             previewBtn.addEventListener('click', function () {
-                const file = imageUpload.files[0];
-                if (!file) {
-                    alert('請先選擇圖片檔案');
+                const link = excalidrawLink.value.trim();
+                if (!link) {
+                    alert('請先輸入 Excalidraw 連結');
                     return;
                 }
 
-                if (!isValidImageFile(file)) {
-                    alert('請選擇有效的圖片檔案 (JPG, PNG, GIF)');
+                if (!isValidExcalidrawLink(link)) {
+                    alert('請輸入有效的 Excalidraw 連結');
                     return;
                 }
 
-                const reader = new FileReader();
-                reader.onload = function (e) {
-                    previewSection.style.display = 'block';
-                    previewFrame.innerHTML = `
-                        <img src="${e.target.result}" 
-                             style="max-width: 100%; max-height: 500px; object-fit: contain;" 
-                             alt="Preview">
-                    `;
-                };
-                reader.readAsDataURL(file);
+                previewSection.style.display = 'block';
+                previewFrame.innerHTML = `
+                    <iframe src="${link}" 
+                            style="width: 100%; height: 500px; border: none;" 
+                            allowfullscreen>
+                    </iframe>
+                `;
             });
 
             // Submit functionality
             submitBtn.addEventListener('click', async function () {
-                console.log('Upload button clicked');
-
-                const file = imageUpload.files[0];
+                const link = excalidrawLink.value.trim();
                 const currentUserId = localStorage.getItem('currentUserId');
 
-                console.log('Selected file:', file);
-                console.log('Current user ID:', currentUserId);
-                console.log('Firebase Storage available:', !!window.fbStorage);
-                console.log('Firebase DB available:', !!window.fbDB);
-
-                if (!file) {
-                    alert('請先選擇圖片檔案');
+                if (!link) {
+                    alert('請先輸入 Excalidraw 連結');
                     return;
                 }
 
-                if (!isValidImageFile(file)) {
-                    alert('請選擇有效的圖片檔案 (JPG, PNG, GIF)');
+                if (!isValidExcalidrawLink(link)) {
+                    alert('請輸入有效的 Excalidraw 連結');
                     return;
                 }
 
@@ -712,88 +1123,45 @@
                     return;
                 }
 
-                if (!window.fbStorage) {
-                    alert('Firebase Storage 未初始化，請刷新頁面重試');
-                    return;
-                }
-
-                if (!window.fbDB) {
-                    alert('Firebase Firestore 未初始化，請刷新頁面重試');
-                    return;
-                }
-
                 try {
                     submitBtn.disabled = true;
-                    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>上傳中...';
-
-                    console.log('Starting upload process...');
-
-                    // Upload image to Firebase Storage
-                    const timestamp = Date.now();
-                    const fileName = `${currentUserId}_mindmap_${timestamp}`;
-                    const storageRef = ref(window.fbStorage, `mindmaps/${fileName}`);
-
-                    console.log('Storage reference created:', storageRef);
-                    console.log('Uploading file...');
-
-                    await uploadBytes(storageRef, file);
-                    console.log('File uploaded successfully');
-
-                    const downloadURL = await getDownloadURL(storageRef);
-                    console.log('Download URL obtained:', downloadURL);
+                    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>提交中...';
 
                     // Add submission to Firestore
-                    const submissionsCollection = collection(window.fbDB, 'mindmap_submissions');
+                    const submissionsCollection = collection(window.fbDB, 'image_notes_submissions');
                     const newSubmission = {
-                        imageUrl: downloadURL,
-                        fileName: fileName,
+                        link: link,
                         userId: currentUserId,
                         timestamp: serverTimestamp(),
                         createdAt: new Date().toISOString()
                     };
 
-                    console.log('Adding submission to Firestore:', newSubmission);
                     await addDoc(submissionsCollection, newSubmission);
-                    console.log('Submission added to Firestore successfully');
 
                     // Clear form
-                    imageUpload.value = '';
+                    excalidrawLink.value = '';
                     previewSection.style.display = 'none';
                     previewFrame.innerHTML = '';
 
-                    alert('心智圖上傳成功！');
+                    alert('作品提交成功！');
 
                     // Refresh submissions display
                     loadSubmissions();
 
                 } catch (error) {
-                    console.error('Upload error details:', error);
-                    console.error('Error code:', error.code);
-                    console.error('Error message:', error.message);
-
-                    let errorMessage = '上傳失敗: ';
-                    if (error.code === 'storage/unauthorized') {
-                        errorMessage += '權限不足，請聯絡管理員';
-                    } else if (error.code === 'storage/quota-exceeded') {
-                        errorMessage += '儲存空間不足';
-                    } else if (error.code === 'storage/invalid-format') {
-                        errorMessage += '檔案格式不支援';
-                    } else {
-                        errorMessage += error.message;
-                    }
-
-                    alert(errorMessage);
+                    console.error('Error submitting:', error);
+                    alert(`提交失敗: ${error.message}`);
                 } finally {
                     submitBtn.disabled = false;
-                    submitBtn.innerHTML = '<i class="fas fa-cloud-upload-alt me-2"></i>上傳心智圖';
+                    submitBtn.innerHTML = '<i class="fas fa-paper-plane me-2"></i>提交作品';
                 }
             });
 
             // Load submissions
             async function loadSubmissions() {
                 try {
-                    console.log('Loading mindmap submissions...');
-                    const submissionsCollection = collection(window.fbDB, 'mindmap_submissions');
+                    console.log('Loading Image Notes submissions...');
+                    const submissionsCollection = collection(window.fbDB, 'image_notes_submissions');
                     const q = query(submissionsCollection, orderBy('createdAt', 'desc'));
                     const querySnapshot = await getDocs(q);
 
@@ -855,13 +1223,14 @@
                             </div>
                         </div>
                         <div class="card-body p-0" style="height: 300px;">
-                            <img src="${submission.imageUrl}" 
-                                 style="width: 100%; height: 100%; object-fit: cover;" 
-                                 alt="Mindmap">
+                            <iframe src="${submission.link}" 
+                                    style="width: 100%; height: 100%; border: none;" 
+                                    allowfullscreen>
+                            </iframe>
                         </div>
-                        <div class="card-footer" style="background-color: #197041; border-top: 1px solid #e0e0e0; padding: 15px;">
+                        <div class="card-footer" style="background-color: #fff; border-top: 1px solid #e0e0e0; padding: 15px;">
                             <div class="d-flex justify-content-between align-items-center">
-                                <a href="${submission.imageUrl}" target="_blank" class="btn btn-sm btn-outline-primary">
+                                <a href="${submission.link}" target="_blank" class="btn btn-sm btn-outline-primary">
                                     <i class="fas fa-external-link-alt me-1"></i>在新視窗開啟
                                 </a>
                                 ${canDelete ? `
@@ -890,7 +1259,7 @@
             // Delete submission
             async function deleteSubmission(docId) {
                 try {
-                    const submissionRef = doc(window.fbDB, 'mindmap_submissions', docId);
+                    const submissionRef = doc(window.fbDB, 'image_notes_submissions', docId);
                     await deleteDoc(submissionRef);
                     alert('作品已刪除');
                     loadSubmissions();
@@ -901,19 +1270,8 @@
             }
 
             // Helper functions
-            function isValidImageFile(file) {
-                const validTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp'];
-                const maxSize = 5 * 1024 * 1024; // 5MB
-
-                if (!validTypes.includes(file.type)) {
-                    return false;
-                }
-
-                if (file.size > maxSize) {
-                    return false;
-                }
-
-                return true;
+            function isValidExcalidrawLink(link) {
+                return link.includes('excalidraw.com') || link.includes('excalidraw.app');
             }
 
             function formatTimestamp(timestamp) {
@@ -929,7 +1287,7 @@
             }
 
             // Initialize
-            console.log('Starting Excalidraw submissions load...');
+            console.log('Starting Image Notes submissions load...');
             loadSubmissions();
         });
 
@@ -944,7 +1302,158 @@
     <script>
         // Add all the prompt handling functions to the global window object
 
+        // Load prompts from Firestore and display them
+        async function loadPrompts(sortDirection = 'desc') {
+            const promptLogbook = document.getElementById('promptLogbook');
+            const loadingPrompts = document.getElementById('loadingPrompts');
 
+            if (!promptLogbook || !window.fbDB) return;
+
+            try {
+                // Show loading indicator
+                if (loadingPrompts) {
+                    loadingPrompts.style.display = 'block';
+                }
+
+                // Clear existing content except loading indicator
+                Array.from(promptLogbook.children).forEach(child => {
+                    if (child.id !== 'loadingPrompts') {
+                        promptLogbook.removeChild(child);
+                    }
+                });
+
+                // Get current user ID for permission checks
+                const currentUserId = localStorage.getItem('currentUserId') || '';
+                const isAdmin = currentUserId === 'M514';
+
+                // Import required functions from Firebase
+                const { collection, query, orderBy, getDocs, doc, deleteDoc, updateDoc, serverTimestamp } = await import("https://www.gstatic.com/firebasejs/11.1.0/firebase-firestore.js");
+
+                // Query prompts, ordered by timestamp
+                const promptsCollection = collection(window.fbDB, 'prompts');
+                const q = query(promptsCollection, orderBy('createdAt', sortDirection));
+                const querySnapshot = await getDocs(q);
+
+                // Hide loading indicator if no prompts found
+                if (querySnapshot.empty && loadingPrompts) {
+                    loadingPrompts.style.display = 'none';
+
+                    // Show "no prompts" message
+                    const noPromptsMsg = document.createElement('div');
+                    noPromptsMsg.className = 'alert alert-secondary text-center';
+                    noPromptsMsg.textContent = '尚未有人提交Prompt';
+                    promptLogbook.appendChild(noPromptsMsg);
+                    return;
+                }
+
+                // Process each prompt document
+                querySnapshot.forEach(doc => {
+                    const promptData = doc.data();
+                    const promptId = doc.id;
+                    const canEdit = isAdmin || promptData.userId === currentUserId;
+
+                    // Format timestamp
+                    let timestampStr = '剛剛';
+                    if (promptData.timestamp) {
+                        const timestamp = promptData.timestamp.toDate();
+                        timestampStr = new Intl.DateTimeFormat('zh-HK', {
+                            year: 'numeric',
+                            month: 'numeric',
+                            day: 'numeric',
+                            hour: '2-digit',
+                            minute: '2-digit'
+                        }).format(timestamp);
+                    }
+
+                    // Create prompt card
+                    const promptCard = document.createElement('div');
+                    promptCard.className = 'card mb-3 prompt-card';
+                    promptCard.innerHTML = `
+                                <div class="card-header d-flex justify-content-between align-items-center bg-light">
+                                    <span class="fw-semibold"><i class="fas fa-user-circle me-2"></i>${promptData.userId || '匿名'}</span>
+                                    <small class="text-muted"><i class="far fa-clock me-1"></i>${timestampStr}</small>
+                                </div>
+                                <div class="card-body position-relative">
+                                    <div class="action-buttons position-absolute top-0 end-0 mt-2 me-2 d-flex gap-1">
+                                        <button class="btn btn-sm btn-light rounded-circle copy-btn" 
+                                                data-prompt="${escape(promptData.text)}" 
+                                                data-bs-toggle="tooltip" data-bs-placement="top" title="複製">
+                                            <i class="fas fa-copy"></i>
+                                        </button>
+                                        ${canEdit ? `
+                                        <button class="btn btn-sm btn-light rounded-circle edit-btn" 
+                                                data-id="${promptId}" 
+                                                data-bs-toggle="tooltip" data-bs-placement="top" title="編輯">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="btn btn-sm btn-light rounded-circle delete-btn" 
+                                                data-id="${promptId}"
+                                                data-bs-toggle="tooltip" data-bs-placement="top" title="刪除">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                        ` : ''}
+                                    </div>
+                                    <p class="card-text pe-5">${promptData.text.replace(/\n/g, '<br>')}</p>
+                                </div>
+                            `;
+
+                    // Add event listeners
+                    promptLogbook.appendChild(promptCard);
+
+                    // Initialize tooltips
+                    const tooltipTriggerList = promptCard.querySelectorAll('[data-bs-toggle="tooltip"]');
+                    tooltipTriggerList.forEach(tooltipTriggerEl => {
+                        new bootstrap.Tooltip(tooltipTriggerEl, {
+                            trigger: 'hover'
+                        });
+                    });
+
+                    // Copy button
+                    const copyBtn = promptCard.querySelector('.copy-btn');
+                    if (copyBtn) {
+                        copyBtn.addEventListener('click', function () {
+                            const promptText = unescape(this.getAttribute('data-prompt'));
+                            copyToClipboard(promptText);
+                        });
+                    }
+
+                    // Edit button
+                    const editBtn = promptCard.querySelector('.edit-btn');
+                    if (editBtn) {
+                        editBtn.addEventListener('click', function () {
+                            const promptId = this.getAttribute('data-id');
+                            openEditModal(promptId, promptData.text);
+                        });
+                    }
+
+                    // Delete button
+                    const deleteBtn = promptCard.querySelector('.delete-btn');
+                    if (deleteBtn) {
+                        deleteBtn.addEventListener('click', function () {
+                            const promptId = this.getAttribute('data-id');
+                            deletePrompt(promptId);
+                        });
+                    }
+                });
+
+                // Hide loading indicator
+                if (loadingPrompts) {
+                    loadingPrompts.style.display = 'none';
+                }
+            } catch (error) {
+                console.error('Error loading prompts:', error);
+                if (loadingPrompts) {
+                    loadingPrompts.style.display = 'none';
+                }
+
+                const errorMsg = document.createElement('div');
+                errorMsg.className = 'alert alert-danger';
+                errorMsg.textContent = `載入Prompt失敗: ${error.message}`;
+                promptLogbook.appendChild(errorMsg);
+            }
+
+
+        }
     </script>
 </body>
 

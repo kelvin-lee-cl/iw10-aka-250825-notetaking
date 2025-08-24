@@ -39,7 +39,7 @@
 
         <!-- Centered User ID -->
         <div class="d-none position-absolute start-50 translate-middle-x" id="userIdDisplay"
-            style="top: 30%; transform: translate(-50%, -50%); z-index: 1001; background: rgba(255,255,255,0.9);  border-radius: 6px; width:120px; margin-left:-10px;">
+            style="top: 30%; transform: translate(-50%, -50%); z-index: 1001; background: rgba(255,255,255,0.9);  border-radius: 6px; width:120px; margin-left:50px;">
             <span class="nav-link fw-bold text-primary fs-6 m-0 p-0"></span>
         </div>
 
@@ -1288,7 +1288,7 @@
                     submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>提交中...';
 
                     // Add submission to Firestore
-                    const submissionsCollection = collection(window.fbDB, 'image_notes_submissions');
+                    const submissionsCollection = collection(window.fbDB, 'learning_cards_submissions');
                     const newSubmission = {
                         link: link,
                         userId: currentUserId,
@@ -1320,8 +1320,8 @@
             // Load submissions
             async function loadSubmissions() {
                 try {
-                    console.log('Loading Image Notes submissions...');
-                    const submissionsCollection = collection(window.fbDB, 'image_notes_submissions');
+                    console.log('Loading learning cards submissions...');
+                    const submissionsCollection = collection(window.fbDB, 'learning_cards_submissions');
                     const q = query(submissionsCollection, orderBy('createdAt', 'desc'));
                     const querySnapshot = await getDocs(q);
 
@@ -1419,7 +1419,7 @@
             // Delete submission
             async function deleteSubmission(docId) {
                 try {
-                    const submissionRef = doc(window.fbDB, 'image_notes_submissions', docId);
+                    const submissionRef = doc(window.fbDB, 'learning_cards_submissions', docId);
                     await deleteDoc(submissionRef);
                     alert('作品已刪除');
                     loadSubmissions();
